@@ -1,6 +1,7 @@
-import { EmailTemplate } from "@/app/components/emails/FirstEmail";
-import { resend } from "@/app/lib/email";
-import { emailSchema } from "@/app/lib/email/utils";
+
+import { EmailTemplate } from "../../../components/molecules/emails/FirstEmail";
+import { resend } from "@lib/email";
+import { emailSchema } from "@lib/email/utils";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -14,7 +15,6 @@ export async function POST(request: Request) {
       react: EmailTemplate({ firstName: name }),
       text: "Email powered by Resend.",
     });
-
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error });

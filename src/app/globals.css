@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
 
 @layer base {
   :root {
@@ -25,8 +24,11 @@
     --input: 240 5.9% 90%;
     --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f2f2f2;
+    --radix-popover-content-available-height: 200px;
   }
- 
+
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
@@ -47,5 +49,29 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
+    --radix-popover-content-available-height: 200px;
   }
+}
+
+/* Your main CSS file */
+/* This targets all webkit browsers such as Chrome and Safari */
+::-webkit-scrollbar {
+  width: 1px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f2f2f2; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #f2f2f2; /* creates padding around scroll thumb */
+}
+
+/* This targets all Firefox browsers */
+
+.PopoverContent {
+  width: var(--radix-popover-trigger-width);
+  overflow-y: scroll;
 }

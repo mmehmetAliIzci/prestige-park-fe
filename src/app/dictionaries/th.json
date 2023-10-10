@@ -1,9 +1,15 @@
 {
   "server-component": {
-    "welcome": "Welcome Thai"
+    "welcome": "Welcome"
   },
-  "counter": {
-    "increment": "Increment thai",
-    "decrement": "Decrement thai"
+  "navbar": {
+    "how_it_works": "How it works",
+    "pricing": "Pricing",
+    "sign_in": "Sign in"
+  }, 
+  "try_now": "Try Now",
+  "search_input": {
+    "placeholder": "Search districts",
+    "not_found": "No disctrict found"
   }
 }

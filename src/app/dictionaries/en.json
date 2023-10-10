@@ -2,8 +2,15 @@
   "server-component": {
     "welcome": "Welcome"
   },
-  "counter": {
-    "increment": "Increment",
-    "decrement": "Decrement"
+  "navbar": {
+    "how_it_works": "How it works",
+    "pricing": "Pricing",
+    "sign_in": "Sign in"
+  }, 
+  "try_now": "Try Now",
+  "search_input": {
+    "placeholder": "Search everywhere...",
+    "not_found": "No disctrict found",
+    "group_heading": "Districts"
   }
 }
