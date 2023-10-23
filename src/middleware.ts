@@ -20,7 +20,6 @@ function getLocale(request: NextRequest): string | undefined {
   )
 
   const locale = matchLocale(languages, locales, i18n.defaultLocale)
-  console.warn('locale', locale)
   return locale
 }
 
@@ -45,7 +44,6 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    console.error('yolo')
     const locale = getLocale(request)
 
     // e.g. incoming request is /products

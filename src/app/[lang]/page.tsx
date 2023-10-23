@@ -1,15 +1,12 @@
 import { getDictionary } from "../get-dictionary";
 import { Locale } from "../i18n-config";
 import { Button } from "@components/atoms/button";
-import Navbar from "@components/molecules/navbar";
-import Footer from "@components/molecules/footer";
 import SearchInput from "@components/molecules/searchInput/searchInput";
-import { env } from "@lib/env.mjs";
 import { Suspense } from "react";
 
 async function getDistricts(): Promise<District[]> {
   try {
-    const res = await fetch(`${env.BE_URL}/district`);
+    const res = await fetch(`http://localhost:3000/api/district`);
     const data = await res.json();
     return data;
   } catch (e) {
@@ -28,7 +25,6 @@ export default async function IndexPage({
 
   return (
     <div>
-      <Navbar dictionary={dictionary["navbar"]} />
       <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-transparent to-transparent pb-12 pt-28 sm:pb-16 sm:pt-32 lg:pb-24 xl:pb-32 xl:pt-40">
         <div className="relative isolate z-10">
           <div className="absolute -z-10 flex -translate-y-1/2 justify-center overflow-hidden inset-x-0 top-1/2 [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
@@ -74,7 +70,6 @@ export default async function IndexPage({
             <div className="mt-10">
               <Suspense fallback={<div>Loading</div>}>
                 <SearchInput
-                  lang={lang}
                   dictionary={dictionary["search_input"]}
                   districts={districts}
                 />
@@ -228,7 +223,6 @@ export default async function IndexPage({
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }

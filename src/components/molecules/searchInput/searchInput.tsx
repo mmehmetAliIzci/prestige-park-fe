@@ -1,11 +1,7 @@
 "use client";
 
 import { Button } from "../../atoms/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../atoms/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../../atoms/popover";
 import { Search } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { WithDictionary } from "@lib/types";
@@ -13,22 +9,26 @@ import { useRouter } from "next/navigation";
 import { Input } from "../../atoms/input";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { makeDistrictValueInput } from "./makeDistrictValueInput";
+import { useGetLanguage } from "@lib/hooks/useGetLanguage";
 
 type SearchInputProps = WithDictionary<{
-  lang: string;
-  districts: District[]
+  districts: District[];
 }>;
 
-const SearchInput = ({ dictionary, lang, districts }: SearchInputProps) => {
+const SearchInput = ({ dictionary, districts }: SearchInputProps) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selectedDistrict, setSelectedDistrict] = useState({
     value: 0,
     label: dictionary["placeholder"],
   });
-  const districtsValueLabels = useMemo(() => makeDistrictValueInput(districts)[lang], [lang]);
-  const [filteredDistricts, setFilteredDistricts] = useState(districtsValueLabels);
-  
+  const { lang } = useGetLanguage();
+  const districtsValueLabels = useMemo(
+    () => makeDistrictValueInput(districts)[lang],
+    [lang]
+  );
+  const [filteredDistricts, setFilteredDistricts] =
+    useState(districtsValueLabels);
 
   const handleFilterInputChanged = useCallback(
     (label: string) => {

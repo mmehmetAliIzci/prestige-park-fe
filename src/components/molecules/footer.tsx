@@ -1,14 +1,15 @@
+import Link from "next/link";
 import Logo from "../atoms/logo";
 
 const footer = () => {
   return (
-    <footer className="bg-white py-12 sm:py-16 lg:py-24">
+    <footer className="bg-white py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <a className="isomorphic-link flex items-center justify-center gap-1">
+        <Link href='/' className="isomorphic-link flex items-center justify-center gap-1">
           <Logo />
-          <div className="text-2xl text-[#000000] font-bold">InfyGPT</div>
-          <p className="sr-only">SiteGPT</p>
-        </a>
+          <div className="text-2xl text-[#000000] font-bold">Prestige Parking</div>
+          <p className="sr-only">Prestige Parking</p>
+        </Link>
         <nav
           className=" sm:columns-2 -mb-6 mt-8 flex flex-wrap sm:flex-nowrap gap-3 sm:gap-0 justify-center sm:space-x-8"
           aria-label="Footer"

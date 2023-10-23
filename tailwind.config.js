@@ -75,6 +75,11 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      scale: {
+        '101': '1.01',
+        '102': '1.02',
+        // Add as many custom scales as you need
+      },
     },
   },
   plugins: [require("tailwindcss-animate"),require("@tailwindcss/typography")],
