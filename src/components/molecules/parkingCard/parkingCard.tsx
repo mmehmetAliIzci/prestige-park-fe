@@ -1,15 +1,17 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 
-const ParkingCard = ({parking} : {parking: Parking}) => {
+const ParkingCard = ({parking, onMouseEnter, onMouseLeave} : {parking: Parking, onMouseEnter?: (any) => void, onMouseLeave?: () => void}) => {
   return (
-    <Link href={`/parking/${parking.id}`} className="rounded-lg p-4 shadow-md shadow-indigo-100 max-h-80 lg:flex lg:flex-col flex-row w-full">
+    <Link onMouseEnter={() => onMouseEnter(parking.id)} onMouseLeave={onMouseLeave}
+      href={`/parking/${parking.id}`} className="rounded-lg p-4 shadow-md shadow-indigo-100 max-h-80 flex lg:flex-col flex-row xs:w-full" >
       <Image
         alt="Home"
         width={100}
         height={100}
         src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        className="h-36 w-full rounded-md object-cover lg:h-40"
+        className="h-36 w-48 lg:w-full rounded-md object-cover lg:h-40"
       />
 
       <div className="sm:ml-2 mt-2">

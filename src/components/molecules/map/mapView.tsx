@@ -1,10 +1,12 @@
 "use client";
-import React, {useEffect, useMemo} from "react";
+import React, {useCallback, useContext, useEffect, useMemo} from "react";
 import {MapContainer, Marker, Popup, TileLayer, useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import Leaflet from 'leaflet';
+import Leaflet, {DivIcon} from 'leaflet';
 import { cn } from "@utils";
 import {useIsomorphicLayoutEffect} from "@lib/hooks/useIsomorphicLayoutEffect";
+import {HoveredMarkerContext} from "@components/context/HoveredMarkerContext";
+import Link from "next/link";
 
 export type MapMarker = {
     id: string;
@@ -32,6 +34,8 @@ const BoundsSetter: React.FC = React.memo(({ markers }) => {
 });
 
 const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
+    const { hoveredMarkerId } = useContext(HoveredMarkerContext);
+
     useIsomorphicLayoutEffect(() => {
         (async function init() {
             try{
@@ -49,9 +53,18 @@ const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
         })();
     }, []);
 
-    useEffect(() => {
-        console.warn("markers changed", markers)
-    }, [markers])
+    const normalIcon = new Leaflet.Icon({
+        iconUrl: '/leaflet/images/marker-icon-2x.png',
+        iconSize: [25, 40],
+        iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+        // ...other options
+    });
+
+    const hoveredIcon = new Leaflet.Icon({
+        iconUrl: '/leaflet/images/map-marker-hovered.svg',  // Replace with the path to your large icon
+        iconSize: [40, 40],  // Adjust size as needed
+        // ...other options
+    });
 
     const markersMemo = useMemo(() => markers, [markers]);  // Memoize markers to prevent unnecessary re-renders
 
@@ -75,9 +88,10 @@ const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
 
             {markersMemo?.map((marker: MapMarker) => {
                 return (
-                  <Marker key={marker.id} position={[marker.position[1],marker.position[0]]}>
+                  <Marker key={marker.id} position={[marker.position[1],marker.position[0]]}         icon={marker.id === hoveredMarkerId ? hoveredIcon : normalIcon}
+                  >
                       <Popup>
-                          {marker.description} {marker.position}
+                          {marker.description} <Link href={`/parking/${marker.id}`}>Details</Link>
                       </Popup>
                   </Marker>
                 )})

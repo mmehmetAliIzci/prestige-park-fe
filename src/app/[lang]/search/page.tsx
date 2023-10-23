@@ -1,7 +1,6 @@
 import {Locale} from "@/i18n-config";
 import {getDictionary} from "../../get-dictionary";
 import {SearchPageContent} from "@components/organisms/searchPage";
-import {useEffect} from "react";
 
 
 type SearchParams = {
