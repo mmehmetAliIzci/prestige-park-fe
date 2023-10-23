@@ -3,16 +3,16 @@ import Link from "next/link";
 
 const ParkingCard = ({parking} : {parking: Parking}) => {
   return (
-    <Link href={`/parking/${parking.id}`} className="block rounded-lg p-4 shadow-md shadow-indigo-100">
+    <Link href={`/parking/${parking.id}`} className="rounded-lg p-4 shadow-md shadow-indigo-100 max-h-80 lg:flex lg:flex-col flex-row w-full">
       <Image
         alt="Home"
         width={100}
         height={100}
         src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        className="h-38 w-full rounded-md object-cover"
+        className="h-36 w-full rounded-md object-cover lg:h-40"
       />
 
-      <div className="mt-2">
+      <div className="sm:ml-2 mt-2">
         <dl>
           <div>
             <dt className="sr-only">Name</dt>
@@ -42,7 +42,7 @@ const ParkingCard = ({parking} : {parking: Parking}) => {
               <p className="text-gray-500">Hourly</p>
 
               <p className="font-medium">
-                {parking.hourly_rate !== "" ? `${parking.hourly_rate} / h` : "N/A"} 
+                {parking.hourly_rate !== "" ? `${parking.hourly_rate} / h` : "N/A"}
               </p>
             </div>
           </div>
