@@ -16,7 +16,18 @@ module.exports = {
       },
     },
     extend: {
-      maxWidth: { 
+      flexGrow :{
+        '0.75': '0.75',
+      },
+      height: {
+        '80vh': '80vh',
+        '96vh': '96vh',
+      },
+      minHeight: {
+        '80vh': '80vh',
+        '96vh': '96vh',
+      },
+      maxWidth: {
         "8xl": "90rem",
         "9xl": "100rem",
         "10xl": "110rem",

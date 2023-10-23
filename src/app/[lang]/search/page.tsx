@@ -1,7 +1,8 @@
-import { Locale } from "@/i18n-config";
-import SearchInput from "@components/molecules/searchInput/searchInput";
-import { getDictionary } from "../../get-dictionary";
-import ParkingCard from "@components/molecules/parkingCard/parkingCard";
+import {Locale} from "@/i18n-config";
+import {getDictionary} from "../../get-dictionary";
+import {SearchPageContent} from "@components/organisms/searchPage";
+import {useEffect} from "react";
+
 
 type SearchParams = {
     params: {
@@ -54,24 +55,8 @@ export default async function SearchPage({
     const districts = await getDistricts();
     const dictionary = await getDictionary(lang);
 
+
     return (
-        <div className="flex flex-col items-center min-h-screen py-2">
-            <SearchInput
-                districts={districts}
-                dictionary={dictionary["search_input"]}
-            />
-            <div className="grid grid-cols-2">
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2">
-                    {parkings ? (
-                        parkings.map((parking) => {
-                            return <ParkingCard parking={parking} />;
-                        })
-                    ) : (
-                        <div>no parkings</div>
-                    )}
-                </div>
-                <div className="p-2">Here needs to be a map</div>
-            </div>
-        </div>
+        <SearchPageContent dictionary={dictionary} districts={districts} parkings={parkings} />
     );
 }
