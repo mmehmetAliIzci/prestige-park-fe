@@ -5,8 +5,8 @@ declare interface Parking {
   business_hours_start: string;
   business_hours_end: string;
   promoted: boolean;
-  facilities: { [key: string]: boolean};
-  parking_types: { [key: string]: boolean};
+  facilities: { [key: string]: boolean };
+  parking_types: { [key: string]: boolean };
   language: string;
   neighborhood: string;
   description: string;

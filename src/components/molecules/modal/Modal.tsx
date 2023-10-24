@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Portal } from "@components/atoms/Portal";
-import { cn } from "@utils";
-import { PropsWithChildren, ReactElement, useEffect, useRef } from "react";
+import { Portal } from '@components/atoms/Portal';
+import { cn } from '@utils';
+import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react';
 
 export type ModalProps = {
   show: boolean;
@@ -31,15 +31,15 @@ export const Modal = ({
 
   useEffect(() => {
     const requestClose = (event: KeyboardEvent) => {
-      if (backdropClosable && event.key === "Escape") {
+      if (backdropClosable && event.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", requestClose);
+    document.addEventListener('keydown', requestClose);
 
     return () => {
-      document.removeEventListener("keydown", requestClose);
+      document.removeEventListener('keydown', requestClose);
     };
   }, [onClose, backdropClosable]);
 
@@ -48,21 +48,24 @@ export const Modal = ({
       <div
         tabIndex={-1}
         className={cn(
-          "w-full h-full justify-center content-center flex-wrap fixed top-0 bottom-0 right-0 left-0 z-40",
-          show ? "flex visible" : "hidden invisible"
+          'fixed bottom-0 left-0 right-0 top-0 z-40 h-full w-full flex-wrap content-center justify-center',
+          show ? 'visible flex' : 'invisible hidden'
         )}
       >
         {/* backdrop */}
         <div
           className={cn(
-            "fixed top-0 left-0 w-full h-full z-40 transition-opacity duration-200 bg-gray-800 bg-opacity-50",
-            show ? "block opacity-100" : "hidden opacity-0"
+            'fixed left-0 top-0 z-40 h-full w-full bg-gray-800 bg-opacity-50 transition-opacity duration-200',
+            show ? 'block opacity-100' : 'hidden opacity-0'
           )}
         />
         <div
           ref={parentElement}
-          role="dialog"
-          className={cn("relative z-50 flex bg-white", fullscreen && "w-full h-full")}
+          role='dialog'
+          className={cn(
+            'relative z-50 flex bg-white',
+            fullscreen && 'h-full w-full'
+          )}
         >
           {/* {withCloseButton && (
             <IconButton
@@ -74,10 +77,8 @@ export const Modal = ({
               data-testid="close-icon"
             />
           )} */}
-          
+
           {children}
-          
-          
         </div>
       </div>
     </Portal>

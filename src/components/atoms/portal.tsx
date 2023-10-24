@@ -5,11 +5,18 @@ import { useIsomorphicLayoutEffect } from '@lib/hooks/useIsomorphicLayoutEffect'
 import { FC, ReactNode, RefObject, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-export type PortalNode = HTMLElement | null | undefined | RefObject<HTMLElement> | string;
+export type PortalNode =
+  | HTMLElement
+  | null
+  | undefined
+  | RefObject<HTMLElement>
+  | string;
 
 // type guard to check if node is a React RefObject
 const isRefObject = (node: PortalNode): node is RefObject<HTMLElement> =>
-  node !== null && node !== undefined && Object.prototype.hasOwnProperty.call(node, 'current');
+  node !== null &&
+  node !== undefined &&
+  Object.prototype.hasOwnProperty.call(node, 'current');
 
 export interface PortalProps {
   node?: PortalNode;
@@ -42,5 +49,12 @@ export const Portal: FC<PortalProps> = ({ children, node }) => {
     return null;
   }
 
-  return <>{createPortal(children as unknown as Parameters<typeof createPortal>[0], mountNode)}</>;
+  return (
+    <>
+      {createPortal(
+        children as unknown as Parameters<typeof createPortal>[0],
+        mountNode
+      )}
+    </>
+  );
 };

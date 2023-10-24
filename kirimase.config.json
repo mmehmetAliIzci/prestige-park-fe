@@ -1,9 +1,6 @@
 {
   "hasSrc": true,
-  "packages": [
-    "shadcn-ui",
-    "resend"
-  ],
+  "packages": ["shadcn-ui", "resend"],
   "preferredPackageManager": "yarn",
   "rootPath": "src/",
   "orm": null,

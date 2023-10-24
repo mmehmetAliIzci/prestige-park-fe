@@ -1,1 +1,1 @@
-export type WithDictionary<T> = T & { dictionary: {[key: string]: any} };
+export type WithDictionary<T> = T & { dictionary: { [key: string]: any } };

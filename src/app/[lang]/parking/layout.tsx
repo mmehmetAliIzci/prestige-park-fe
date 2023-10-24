@@ -1,7 +1,7 @@
 export default async function PagesLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return <div className="flex-grow mt-20">{children}</div>;
+  return <div className='mt-20 flex-grow'>{children}</div>;
 }

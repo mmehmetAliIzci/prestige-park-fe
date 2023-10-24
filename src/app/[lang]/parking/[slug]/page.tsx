@@ -1,11 +1,16 @@
-import { Locale } from "@/i18n-config";
-import ParkingPageContent from "@components/organisms/parkingPage";
-import { ReactNode } from "react";
+import { Locale } from '@/i18n-config';
+import ParkingPageContent from '@components/organisms/parkingPage';
+import { ReactNode } from 'react';
 
-async function getParkingFromId(id: string, lang: string): Promise<Parking | undefined> {
-  if (id !== "") {
+async function getParkingFromId(
+  id: string,
+  lang: string
+): Promise<Parking | undefined> {
+  if (id !== '') {
     try {
-      const res = await fetch(`http://localhost:3000/api/parkings?lang=${lang}&id=${id}`);
+      const res = await fetch(
+        `http://localhost:3000/api/parkings?lang=${lang}&id=${id}`
+      );
       const data = await res.json();
       return data;
     } catch (e) {
@@ -23,7 +28,5 @@ export default async function ParkingPage({
 }) {
   const parking = await getParkingFromId(slug, lang);
 
-  return (
-    <ParkingPageContent parking={parking} />
-  );
+  return <ParkingPageContent parking={parking} />;
 }

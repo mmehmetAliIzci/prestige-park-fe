@@ -1,8 +1,7 @@
-import ImageGallery from "@components/molecules/imageGallery/imageGallery";
-import { ReactNode } from "react";
+import ImageGallery from '@components/molecules/imageGallery/imageGallery';
+import { ReactNode } from 'react';
 
-const ParkingPageContent = ({parking}: {parking?: Parking}) => {
-
+const ParkingPageContent = ({ parking }: { parking?: Parking }) => {
   const facilities = (parking: Parking): ReactNode => {
     let facilityNodes: ReactNode[] = [];
     Object.keys(parking.facilities).forEach((key, index) => {
@@ -15,13 +14,8 @@ const ParkingPageContent = ({parking}: {parking?: Parking}) => {
     return facilityNodes;
   };
 
-  
   if (!parking) {
-    return (
-      <div>
-        No Parking found for this id
-      </div>
-    )
+    return <div>No Parking found for this id</div>;
   }
 
   return (
@@ -29,7 +23,7 @@ const ParkingPageContent = ({parking}: {parking?: Parking}) => {
       <ImageGallery images={parking.image_urls} />
       ParkingPage for {parking.name}
     </div>
-  )
-}
+  );
+};
 
 export default ParkingPageContent;

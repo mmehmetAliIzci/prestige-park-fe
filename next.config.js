@@ -4,6 +4,6 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'parkandridefinder.com'],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
