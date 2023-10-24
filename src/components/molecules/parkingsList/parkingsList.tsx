@@ -3,11 +3,11 @@ import ParkingCard from '@components/molecules/parkingCard/parkingCard';
 import { HoveredMarkerContext } from '@components/context/HoveredMarkerContext';
 import { useContext } from 'react';
 
-const ParkingList = ({ parkings }) => {
+const ParkingList: React.FC<{parkings: Parking[]}> = ({ parkings }) => {
   const { setHoveredMarkerId } = useContext(HoveredMarkerContext);
 
   const handleMouseEnter = (id: number) => () => setHoveredMarkerId(id);
-  const handleMouseLeave = () => setHoveredMarkerId(null);
+  const handleMouseLeave = () => setHoveredMarkerId(0);
 
   return (
     <div className='xs:grid-cols-1 grid grid-cols-1 content-start gap-2 lg:grid-cols-2 xl:grid-cols-3'>

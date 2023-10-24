@@ -1,6 +1,6 @@
 'use client';
 
-import { Portal } from '@components/atoms/Portal';
+import { Portal } from '@components/atoms/portal';
 import { cn } from '@utils';
 import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react';
 

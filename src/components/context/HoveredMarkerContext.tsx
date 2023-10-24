@@ -1,12 +1,13 @@
-import { createContext, useState } from 'react';
+import { ReactNode, createContext, useState } from 'react';
 
-export const HoveredMarkerContext = createContext<{
-  hoveredMarkerId: number;
-  setHoveredMarkerId: (value: ((prevState: number) => number) | number) => void;
-}>(null);
+export type HoveredMarkerContextType = {
+    hoveredMarkerId: number;
+    setHoveredMarkerId: (value: ((prevState: number) => number) | number) => void;
+  }
+export const HoveredMarkerContext = createContext<HoveredMarkerContextType>(null as unknown as HoveredMarkerContextType);
 
-export const HoveredMarkerProvider = ({ children }) => {
-  const [hoveredMarkerId, setHoveredMarkerId] = useState<number>(null);
+export const HoveredMarkerProvider = ({ children }: {children: ReactNode}) => {
+  const [hoveredMarkerId, setHoveredMarkerId] = useState<number>(0);
 
   return (
     <HoveredMarkerContext.Provider

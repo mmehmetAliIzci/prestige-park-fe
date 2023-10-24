@@ -28,7 +28,7 @@ export const SearchPageContent = ({
     () =>
       parkings.map((parking) => ({
         id: parking.id,
-        position: parking.geom.coordinates,
+        position: [parking.geom.coordinates[1], parking.geom.coordinates[0]] as [number, number],
         description: parking.name,
       })),
     [parkings]

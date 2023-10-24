@@ -7,37 +7,24 @@ import { cn } from '@utils';
 import { useIsomorphicLayoutEffect } from '@lib/hooks/useIsomorphicLayoutEffect';
 import { HoveredMarkerContext } from '@components/context/HoveredMarkerContext';
 import Link from 'next/link';
+import { useBounds } from '@components/molecules/map/useBounds';
 
 export type MapMarker = {
-  id: string;
+  id: number;
   position: [number, number];
   description: string;
 };
 
 export type MapViewProps = {
   className?: string;
-  markers?: MapMarker[];
+  markers: MapMarker[] | [];
 };
 
-const BoundsSetter: React.FC = React.memo(({ markers }) => {
-  const map = useMap();
-
-  useEffect(() => {
-    if (markers && markers.length > 0) {
-      const latLngs = markers.map((marker) => [
-        marker.position[1],
-        marker.position[0],
-      ]);
-      const bounds = new Leaflet.LatLngBounds(latLngs);
-      map.fitBounds(bounds);
-    }
-  }, [markers, map]);
-
-  return null;
-});
-
-const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
+const MapView: React.FC<MapViewProps> = ({ className, markers }) => {
   const { hoveredMarkerId } = useContext(HoveredMarkerContext);
+
+  const markersMemo = useMemo(() => markers, [markers]); // Memoize markers to prevent unnecessary re-renders
+  useBounds(markersMemo);
 
   useIsomorphicLayoutEffect(() => {
     (async function init() {
@@ -55,19 +42,6 @@ const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
     })();
   }, []);
 
-  const normalIcon = new Leaflet.Icon({
-    iconUrl: '/leaflet/images/marker-icon-2x.png',
-    iconSize: [25, 40],
-    iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
-  });
-
-  const hoveredIcon = new Leaflet.Icon({
-    iconUrl: '/leaflet/images/map-marker-hovered.svg', // Replace with the path to your large icon
-    iconSize: [40, 40],
-  });
-
-  const markersMemo = useMemo(() => markers, [markers]); // Memoize markers to prevent unnecessary re-renders
-
   return (
     <MapContainer
       center={[13.738699, 100.561619]}
@@ -84,13 +58,11 @@ const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
-      <BoundsSetter markers={markersMemo} />
-
       {markersMemo?.map((marker: MapMarker) => {
         return (
           <Marker
             key={marker.id}
-            position={[marker.position[1], marker.position[0]]}
+            position={marker.position}
             icon={marker.id === hoveredMarkerId ? hoveredIcon : normalIcon}
           >
             <Popup>
@@ -103,5 +75,16 @@ const MapView: React.FC = ({ className, markers, center }: MapViewProps) => {
     </MapContainer>
   );
 };
+
+const normalIcon = new Leaflet.Icon({
+  iconUrl: '/leaflet/images/marker-icon-2x.png',
+  iconSize: [25, 40],
+  iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+});
+
+const hoveredIcon = new Leaflet.Icon({
+  iconUrl: '/leaflet/images/map-marker-hovered.svg', // Replace with the path to your large icon
+  iconSize: [40, 40],
+});
 
 export default MapView;
