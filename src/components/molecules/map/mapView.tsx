@@ -1,30 +1,38 @@
 'use client';
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import React, { FormEvent, useContext, useMemo, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import Leaflet, { DivIcon } from 'leaflet';
+import Leaflet from 'leaflet';
 import { cn } from '@utils';
 import { useIsomorphicLayoutEffect } from '@lib/hooks/useIsomorphicLayoutEffect';
-import { HoveredMarkerContext } from '@components/context/HoveredMarkerContext';
+import { ParkingContext } from '@components/context/ParkingContext';
 import Link from 'next/link';
-import { useBounds } from '@components/molecules/map/useBounds';
+import { Checkbox } from '@components/atoms/checkbox';
+import { Label } from '@components/atoms/label';
+import BoundsSetter from '@components/molecules/map/boundsSetter';
+import SearchAsIMove from '@components/molecules/map/searchAsIMove';
 
 export type MapMarker = {
   id: number;
-  position: [number, number];
+  position: number[];
   description: string;
 };
 
 export type MapViewProps = {
   className?: string;
-  markers: MapMarker[] | [];
+  markers?: MapMarker[] | [];
 };
 
 const MapView: React.FC<MapViewProps> = ({ className, markers }) => {
-  const { hoveredMarkerId } = useContext(HoveredMarkerContext);
+  const { hoveredMarkerId, parkings } = useContext(ParkingContext);
 
-  const markersMemo = useMemo(() => markers, [markers]); // Memoize markers to prevent unnecessary re-renders
-  useBounds(markersMemo);
+  const markersMemo = useMemo(() => {
+    return parkings.map((parking) => ({
+      id: parking.id,
+      position: [parking.geom.coordinates[1], parking.geom.coordinates[0]],
+      description: parking.name,
+    }));
+  }, [parkings]); // Memoize markers to prevent unnecessary re-renders
 
   useIsomorphicLayoutEffect(() => {
     (async function init() {
@@ -37,7 +45,7 @@ const MapView: React.FC<MapViewProps> = ({ className, markers }) => {
           shadowUrl: '/leaflet/images/marker-shadow.png',
         });
       } catch (e) {
-        debugger;
+        console.error(e);
       }
     })();
   }, []);
@@ -53,16 +61,14 @@ const MapView: React.FC<MapViewProps> = ({ className, markers }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <BoundsSetter markers={markersMemo} />
+      <SearchAsIMove />
       {markersMemo?.map((marker: MapMarker) => {
+        console.warn('marker', marker);
         return (
           <Marker
             key={marker.id}
-            position={marker.position}
+            position={[marker.position[0], marker.position[1]]}
             icon={marker.id === hoveredMarkerId ? hoveredIcon : normalIcon}
           >
             <Popup>

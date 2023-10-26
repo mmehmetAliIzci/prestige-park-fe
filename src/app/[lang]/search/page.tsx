@@ -16,18 +16,17 @@ async function getParkingsForArea(
 ): Promise<Parking[]> {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/search?district=${district}&lang=${lang}`
+      `http://localhost:3000/api/parkings/search/district/${district}?lang=${lang}`
     );
     if (res.status !== 200) {
-      console.error('BE API returned not 200');
-      return [];
+      throw new Error('BE API returned not 200');
     }
 
     const data = await res.json();
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(
-      'Something went wrong connecting to the BE API while fetching parkings'
+      e.message || 'Something went wrong while fetching parkings for area'
     );
     console.error(e);
     return [];

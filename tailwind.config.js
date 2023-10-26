@@ -12,10 +12,14 @@ module.exports = {
       center: true,
       padding: '2rem',
       screens: {
+        'sm': '640px',
         '2xl': '1400px',
       },
     },
     extend: {
+      zIndex: {
+        aboveMap: '400',
+      },
       flexGrow: {
         0.75: '0.75',
       },

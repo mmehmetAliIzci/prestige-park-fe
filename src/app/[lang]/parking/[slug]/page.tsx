@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n-config';
 import ParkingPageContent from '@components/organisms/parkingPage';
-import { ReactNode } from 'react';
+
 
 async function getParkingFromId(
   id: string,
@@ -9,8 +9,11 @@ async function getParkingFromId(
   if (id !== '') {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/parkings?lang=${lang}&id=${id}`
+        `http://localhost:3000/api/parkings/search/id/${id}?lang=${lang}`
       );
+      if (res.status !== 200) {
+        throw new Error('BE API returned not 200');
+      }
       const data = await res.json();
       return data;
     } catch (e) {
