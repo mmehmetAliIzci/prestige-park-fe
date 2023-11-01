@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
   try {
     const parsedPayload = getByBboxSchema.safeParse({
-        bbox: body.bbox,
+      bbox: body.bbox,
     });
 
     if (!parsedPayload.success) {

@@ -28,7 +28,7 @@ const SearchAsIMove: React.FC = () => {
   });
 
   return (
-    <div className='z-aboveMap top absolute right-1 top-1 flex items-center space-x-2 bg-white p-1'>
+    <div className='top absolute right-1 top-1 z-aboveMap flex items-center space-x-2 bg-white p-1'>
       <Checkbox
         checked={searchAsIMove}
         onCheckedChange={(checked) => setSearchAsIMove(checked as boolean)}

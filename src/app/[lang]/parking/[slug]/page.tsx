@@ -1,7 +1,6 @@
 import { Locale } from '@/i18n-config';
 import ParkingPageContent from '@components/organisms/parkingPage';
 
-
 async function getParkingFromId(
   id: string,
   lang: string

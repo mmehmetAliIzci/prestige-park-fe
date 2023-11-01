@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Locale, i18n } from '@/i18n-config';
 import { cn } from '@utils';
-import { Toaster } from '../../components/atoms/toaster';
+import { Toaster } from '@components/atoms/toaster';
 import Navbar from '@components/molecules/navbar';
 import { getDictionary } from '../get-dictionary';
 import Footer from '@components/molecules/footer';
